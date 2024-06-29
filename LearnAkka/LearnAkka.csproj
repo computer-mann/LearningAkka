@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-LearnAkka-247f0822-584b-4bf2-8462-8cf3455dadae</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Akka" Version="1.5.26" />
+    <PackageReference Include="Akka.DependencyInjection" Version="1.5.24" />
+    <PackageReference Include="Akka.Hosting" Version="1.5.24" />
+    <PackageReference Include="Bogus" Version="35.5.1" />
+    <PackageReference Include="KafkaFlow.Admin" Version="3.0.9" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+  </ItemGroup>
+</Project>
