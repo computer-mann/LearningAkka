@@ -15,6 +15,7 @@ namespace LearnAkka.Actors
     {
         private readonly IProducerService _producerService;
         private readonly ILogger<ProduceToKafkaRoutingActors> _logger;
+        public const string MamprobiTopic = "mamprobi_people_home";
 
         public ProduceToKafkaRoutingActors(IProducerService producerService, ILogger<ProduceToKafkaRoutingActors> logger)
         {
@@ -25,23 +26,27 @@ namespace LearnAkka.Actors
 
             }).Build();
             admin.CreateTopicsAsync(new[]
-             {
+            {
                         new TopicSpecification
                         {
-                            Name = "mamprobi_people",
+                            Name = MamprobiTopic,
                             NumPartitions = 3,
                             ReplicationFactor = 3,
                             Configs = new Dictionary<string, string>
                             {
-                                {"retention.ms", "86400"}
+                                {"retention.ms", "86400000"}, //24 hours
+                                {"delete.retention.ms", "43200000"}, //12 hours
                             }
                         }
                     });
+            
+
             ReceiveAsync<MamprobiPeople>(ReceivePerson);
             _logger = logger;
         }
         public async Task ReceivePerson(MamprobiPeople person)
         {
+            
             _logger.LogInformation("the actor router path is {path}",Context.Self.Path.ToString());
             await _producerService.ProduceToKafkaAsync(person);
         }

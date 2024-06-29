@@ -1,5 +1,6 @@
 using Akka.Actor;
 using Akka.Hosting;
+using Akka.Routing;
 using Bogus;
 using LearnAkka.Actors;
 using SharedModels;
@@ -8,12 +9,12 @@ using static LearnAkka.Actors.ProduceToKafkaRoutingActors;
 
 namespace LearnAkka
 {
-    public class ProducerWorker : BackgroundService
+    public class ProducerBackgroundWorker : BackgroundService
     {
-        private readonly ILogger<ProducerWorker> _logger;
+        private readonly ILogger<ProducerBackgroundWorker> _logger;
         private readonly IRequiredActor<ProduceToKafkaRoutingActors> _firstActor;
 
-        public ProducerWorker(ILogger<ProducerWorker> logger, IRequiredActor<ProduceToKafkaRoutingActors> requiredActor)
+        public ProducerBackgroundWorker(ILogger<ProducerBackgroundWorker> logger, IRequiredActor<ProduceToKafkaRoutingActors> requiredActor)
         {
             _logger = logger;
             _firstActor = requiredActor;
@@ -39,7 +40,8 @@ namespace LearnAkka
                             FirstName=testUsers.FirstName,
                             LastName=testUsers.LastName
                         };
-                        actor.Tell(person,ActorRefs.NoSender);
+                    var msg=new ConsistentHashableEnvelope(person,person.Id);
+                        actor.Tell(msg,ActorRefs.NoSender);
                     
                     await Task.Delay(200, stoppingToken);
                 }

@@ -16,7 +16,7 @@ namespace LearnAkka
         {
             var builder = Host.CreateApplicationBuilder(args);
             var services = builder.Services;
-            services.AddHostedService<ProducerWorker>();
+            services.AddHostedService<ProducerBackgroundWorker>();
             services.AddAkkas();
             services.AddSingleton<IProducerService, ProducerService>();
             services.AddKafka(kafka =>
@@ -33,9 +33,9 @@ namespace LearnAkka
                     });
                     options.AddMiddlewares(middleware =>
                     {
-                        middleware.AddSingleTypeSerializer<JsonCoreSerializer>(typeof(MamprobiPeople));
+                        middleware.AddSerializer<JsonCoreSerializer>();
                     });
-                    options.DefaultTopic("mamprobi_people");
+                    options.DefaultTopic(ProduceToKafkaRoutingActors.MamprobiTopic);
                 }).OnStarted(handler =>
                 {
                     var logger = services.BuildServiceProvider().GetRequiredService<ILogger<Program>>();

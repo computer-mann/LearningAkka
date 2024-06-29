@@ -27,7 +27,7 @@ namespace LearnAkka.ServiceCollectionExtensions
                     var one = system.ActorOf(first, nameof(first));
                     registry.Register<FirstActor>(one);
 
-                    var rout = resolver.Props<ProduceToKafkaRoutingActors>().WithRouter(new RoundRobinPool(5));
+                    var rout = resolver.Props<ProduceToKafkaRoutingActors>().WithRouter(new ConsistentHashingPool(5));
                     var two = system.ActorOf(rout, nameof(rout));
                     registry.Register<ProduceToKafkaRoutingActors>(two);
                 });
