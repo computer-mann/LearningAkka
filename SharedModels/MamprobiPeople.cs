@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace SharedModels
 {
-    internal class MamprobiPeople
+    public class MamprobiPeople
     {
+        public int Id { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? Address { get; set; }
+        public DateOnly Arrival { get; set; }
     }
 }

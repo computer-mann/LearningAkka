@@ -6,12 +6,12 @@ using static LearnAkka.Actors.ProduceToKafkaRoutingActors;
 
 namespace LearnAkka
 {
-    public class Worker : BackgroundService
+    public class ProducerWorker : BackgroundService
     {
-        private readonly ILogger<Worker> _logger;
+        private readonly ILogger<ProducerWorker> _logger;
         private readonly IRequiredActor<ProduceToKafkaRoutingActors> _firstActor;
 
-        public Worker(ILogger<Worker> logger, IRequiredActor<ProduceToKafkaRoutingActors> requiredActor)
+        public ProducerWorker(ILogger<ProducerWorker> logger, IRequiredActor<ProduceToKafkaRoutingActors> requiredActor)
         {
             _logger = logger;
             _firstActor = requiredActor;
