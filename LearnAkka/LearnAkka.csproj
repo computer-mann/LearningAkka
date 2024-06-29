@@ -16,7 +16,12 @@
     <PackageReference Include="KafkaFlow.Admin" Version="3.0.9" />
     <PackageReference Include="KafkaFlow.LogHandler.Console" Version="3.0.9" />
     <PackageReference Include="KafkaFlow.Microsoft.DependencyInjection" Version="3.0.9" />
+    <PackageReference Include="KafkaFlow.Serializer.JsonCore" Version="3.0.9" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
     <PackageReference Include="UuidExtensions" Version="1.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SharedModels\SharedModels.csproj" />
   </ItemGroup>
 </Project>

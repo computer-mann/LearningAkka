@@ -2,6 +2,8 @@ using Akka.Actor;
 using Akka.Hosting;
 using Bogus;
 using LearnAkka.Actors;
+using SharedModels;
+using UuidExtensions;
 using static LearnAkka.Actors.ProduceToKafkaRoutingActors;
 
 namespace LearnAkka
@@ -29,13 +31,17 @@ namespace LearnAkka
                 {
                     var testUsers = new Bogus.Person();
                    
-                        var person = new ActingPerson
+                        var person = new MamprobiPeople
                         {
-                            Name = testUsers.FullName
+                            Id=Uuid7.Id25(),
+                            Address=testUsers.Address.Street,
+                            Arrival=DateOnly.FromDateTime(DateTime.MinValue.AddYears(Random.Shared.Next(1000))),
+                            FirstName=testUsers.FirstName,
+                            LastName=testUsers.LastName
                         };
                         actor.Tell(person,ActorRefs.NoSender);
                     
-                    await Task.Delay(1000, stoppingToken);
+                    await Task.Delay(200, stoppingToken);
                 }
             }
             catch (Exception ex)
