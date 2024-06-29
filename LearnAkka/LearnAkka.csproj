@@ -13,6 +13,7 @@
     <PackageReference Include="Akka.Hosting" Version="1.5.24" />
     <PackageReference Include="Bogus" Version="35.5.1" />
     <PackageReference Include="KafkaFlow.Admin" Version="3.0.9" />
+    <PackageReference Include="KafkaFlow.Microsoft.DependencyInjection" Version="3.0.9" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
   </ItemGroup>
 </Project>
